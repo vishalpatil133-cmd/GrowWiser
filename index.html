@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>GrowWiser Pro - Virtual Trading AI</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+</head>
+
+<body>
+
+    <header class="glass-header">
+        <div class="brand-logo">
+            <h1>
+                GrowWiser 
+                <span class="ai-badge">
+                    <i class="fa-solid fa-robot"></i> PRO
+                </span>
+            </h1>
+        </div>
+        
+        <div class="balance-pill">
+            <span class="bal-label">Available Funds</span>
+            <span id="header-bal-val">10.00L</span>
+        </div>
+    </header>
+
+    <main id="app-content">
+        
+        <section id="home" class="page active">
+            
+            <div class="hero-card glass-card">
+                <p class="hero-label">TOTAL VIRTUAL CAPITAL</p>
+                <h2 id="balance-display">10,00,000.00</h2>
+                
+                <div class="live-indicator">
+                    <span class="blink-dot"></span> 
+                    Live Market Simulation
+                </div>
+            </div>
+
+            <div class="section-title">
+                <h3><i class="fa-solid fa-globe"></i> Global Market (Gold/USD)</h3>
+            </div>
+            
+            <div class="chart-container glass-card">
+                <div id="tradingview_gold" style="height: 100%; width: 100%;"></div>
+            </div>
+            
+            <div class="glass-card" style="margin-top: 20px; padding: 15px; border-left: 4px solid #00ffba;">
+                <h4><i class="fa-regular fa-lightbulb"></i> Today's Tip</h4>
+                <p style="font-size: 0.8rem; color: #a0aec0; margin-top: 5px;">
+                    "Market never moves in a straight line. Have patience and trust your analysis."
+                </p>
+            </div>
+        </section>
+
+   <section id="trade" class="page">
+          <div class="asset-selector-bar">
+        <div class="asset-item active" onclick="changeAsset('XRP/USD', 1.54, this)"><i class="fa-solid fa-coins"></i> XRP</div>
+        <div class="asset-item" onclick="changeAsset('BTC/USD', 64200, this)"><i class="fa-brands fa-bitcoin"></i> BTC</div>
+        <div class="asset-item" onclick="changeAsset('AAPL', 170.50, this)"><i class="fa-brands fa-apple"></i> APPLE</div>
+        <div class="asset-item" onclick="changeAsset('TSLA', 180.20, this)"><i class="fa-solid fa-car"></i> TESLA</div>
+        <div class="asset-item" onclick="changeAsset('MSFT', 400.10, this)"><i class="fa-brands fa-windows"></i> MICROSOFT</div>
+    </div>
+
+
+    <div class="pro-chart-wrapper glass-card">
+        <div class="chart-header">
+            <div class="pair-info">
+                <h4 id="active-symbol">XRP / USD <span class="live-tag">LIVE</span></h4>
+                <p id="chart-price-main">$0.0000</p>
+            </div>
+            <div class="chart-tools">
+                <span>1m</span> | <i class="fa-solid fa-chart-candlestick"></i>
+            </div>
+        </div>
+
+               <div style="position: relative; width: 100%; margin-top: 10px;">
+            <div id="tradingview_advanced_chart" style="height: 480px; width: 100%; border-radius: 8px; overflow: hidden;"></div>
+            
+            <div id="tv-overlay-line" class="tv-floating-line" style="display: none;">
+                <div class="tv-line"></div>
+                <div class="tv-pnl-badge" id="tv-pnl-text">+$0.00</div>
+            </div>
+        </div>
+
+
+
+    <div class="trade-controls">
+        <div class="control-row">
+            <button class="btn-dark" onclick="alert('Stop Loss Set!')">Stops</button>
+            <button class="btn-dark undo-btn"><span class="badge">1 left</span> Undo</button>
+            <button class="btn-danger-close" id="close-btn" onclick="closePosition()" style="opacity: 0.5;" disabled>Close Position</button>
+        </div>
+        <div class="action-buttons-pro">
+            <button class="btn-buy-pro" onclick="openPosition('BUY')">BUY / LONG</button>
+            <button class="btn-sell-pro" onclick="openPosition('SELL')">SELL / SHORT</button>
+        </div>
+    </div>
+            <div style="height: 120px; width: 100%;"></div>
+    </section>
+
+</section>
+
+
+
+
+        <section id="ai" class="page">
+            <div class="section-title">
+                <h3><i class="fa-solid fa-brain"></i> Ask Apurv AI</h3>
+            </div>
+            
+            <div class="chat-container glass-card">
+                <div id="chat-history" class="chat-box">
+                    <div class="ai-msg glass-msg">
+                        <i class="fa-solid fa-robot"></i> &nbsp; Hello! I'm <b>Apurv AI</b>. I can help you analyze Nifty, BankNifty, or explain trading strategies. Ask me anything!
+                    </div>
+                </div>
+                
+                <div class="chat-input-area">
+                    <input type="text" id="user-input" placeholder="Type your question..." class="glass-input rounded">
+                    <button onclick="askApurv()" id="send-btn" class="btn-icon glow-blue">
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+
+        <section id="courses" class="page">
+            <div class="section-title">
+                <h3><i class="fa-solid fa-graduation-cap"></i> GrowWiser Academy</h3>
+            </div>
+
+            <div id="video-player-modal" class="glass-card" style="display:none; margin-bottom: 20px; padding:10px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <span style="font-weight:bold; color:#00ffba;">
+                        <i class="fa-solid fa-play"></i> Now Playing...
+                    </span>
+                    <button onclick="closePlayer()" style="background:none; border:none; color:white; font-size:1.2rem;">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+                <div id="video-container">
+                    </div>
+            </div>
+
+            <div id="course-list-main">
+                
+                <div class="course-card glass-card">
+                    <div class="course-icon" style="color: #00ffba;">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <div class="course-info">
+                        <h4>Free Beginner Batch</h4>
+                        <p>15 Videos • Basics of Market</p>
+                        <span class="price-tag free">FREE</span>
+                    </div>
+                    <button class="btn-small glow-purple" onclick="toggleCourseView('free-lessons')">
+                        View <i class="fa-solid fa-chevron-down"></i>
+                    </button>
+                </div>
+
+                <div id="free-lessons" class="lesson-list glass-card" style="display: none; margin-top: 10px; padding: 15px;">
+                    <h4 style="margin-bottom: 10px; color: #00ffba;">
+                        <i class="fa-solid fa-list"></i> Course Content
+                    </h4>
+                    
+                    <div class="lesson-grid">
+                        <button class="lesson-btn" onclick="playVideo('intro')">1. Intro to Stock Market</button>
+                        <button class="lesson-btn" onclick="playVideo('candles')">2. What are Candlesticks?</button>
+                        <button class="lesson-btn" onclick="playVideo('trend')">3. Trend Analysis</button>
+                        <button class="lesson-btn" onclick="playVideo('support')">4. Support & Resistance</button>
+                        <button class="lesson-btn" onclick="playVideo('patterns')">5. Chart Patterns</button>
+                        </div>
+                    
+                    <div class="referral-box" style="margin-top: 20px; padding: 15px; border: 1px dashed #00ffba; border-radius: 12px; text-align: center;">
+                        <p style="font-size: 0.8rem; margin-bottom: 10px;">Start Real Trading?</p>
+                        <a href="https://angelone.in/" target="_blank" style="display: inline-block; padding: 8px 15px; background: #00ffba; color: black; border-radius: 6px; font-weight: bold;">
+                            Open Demat Account <i class="fa-solid fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="course-card glass-card" style="margin-top: 15px;">
+                    <div class="course-icon" style="color: #f1c40f;">
+                        <i class="fa-solid fa-chart-simple"></i>
+                    </div>
+                    <div class="course-info">
+                        <h4>Technical Masterclass</h4>
+                        <p>Advanced Patterns & Breakouts</p>
+                        <span class="price-tag paid">99</span>
+                    </div>
+                    <button id="btn-99" class="btn-small glow-purple" onclick="buyCourse(99, 'tech')">
+                        Unlock <i class="fa-solid fa-lock"></i>
+                    </button>
+                </div>
+
+                <div class="course-card glass-card" style="margin-top: 15px;">
+                    <div class="course-icon" style="color: #e056fd;">
+                        <i class="fa-solid fa-crown"></i>
+                    </div>
+                    <div class="course-info">
+                        <h4>Option Buying Mastery</h4>
+                        <p>F&O, Greeks & Hero-Zero</p>
+                        <span class="price-tag paid">499</span>
+                    </div>
+                    <button id="btn-499" class="btn-small glow-purple" onclick="buyCourse(499, 'mastery')">
+                        Unlock <i class="fa-solid fa-lock"></i>
+                    </button>
+                </div>
+
+            </div>
+        </section>
+
+
+        <section id="portfolio" class="page">
+            <div class="section-title">
+                <h3><i class="fa-solid fa-briefcase"></i> Your Holdings</h3>
+            </div>
+            
+            <div class="glass-card" style="padding: 15px; margin-bottom: 20px; display: flex; justify-content: space-between;">
+                <div>
+                    <small style="color:#a0aec0;">Invested</small>
+                    <div id="total-invested">0.00</div>
+                </div>
+                <div style="text-align: right;">
+                    <small style="color:#a0aec0;">Current Value</small>
+                    <div id="total-current">0.00</div>
+                </div>
+            </div>
+
+            <div id="portfolio-items-list" class="portfolio-list">
+                <div class="empty-state" style="text-align:center; padding:30px; color:#a0aec0;">
+                    <i class="fa-solid fa-folder-open" style="font-size: 2rem; margin-bottom: 10px;"></i>
+                    <p>No active trades found.</p>
+                </div>
+            </div>
+            
+            
+            <div class="portfolio-header">
+    <h3>My Assets</h3>
+    <div class="mode-toggle-container">
+        <span id="mode-text" style="font-size: 0.8rem; color: var(--primary-neon);">Virtual Mode</span>
+        <label class="switch">
+            <input type="checkbox" id="realModeSwitch" onclick="handleModeSwitch()">
+            <span class="slider round"></span>
+        </label>
+    </div>
+</div>
+
+            
+            
+        </section>
+
+    </main>
+
+    <nav class="floating-nav glass-card">
+        
+        <div class="nav-btn active" onclick="tabChange('home', this)">
+            <span class="icon"><i class="fa-solid fa-house"></i></span>
+            <span class="txt">Home</span>
+        </div>
+        
+        <div class="nav-btn" onclick="tabChange('trade', this)">
+            <span class="icon"><i class="fa-solid fa-chart-line"></i></span>
+            <span class="txt">Trade</span>
+        </div>
+        
+        <div class="nav-btn ai-nav" onclick="tabChange('ai', this)">
+            <span class="icon"><i class="fa-solid fa-robot"></i></span>
+            <span class="txt">AI</span>
+        </div>
+        
+        <div class="nav-btn" onclick="tabChange('courses', this)">
+            <span class="icon"><i class="fa-solid fa-book-open"></i></span>
+            <span class="txt">Learn</span>
+        </div>
+        
+        <div class="nav-btn" onclick="tabChange('portfolio', this)">
+            <span class="icon"><i class="fa-solid fa-wallet"></i></span>
+            <span class="txt">Assets</span>
+        </div>
+    </nav>
+
+    <script src="script.js"></script>
+</body>
+</html>
