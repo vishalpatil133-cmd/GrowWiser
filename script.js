@@ -8,7 +8,7 @@
 // 1. GLOBAL STATE & CONFIGURATION
 // ==========================================
 
-const API_KEY = "AIzaSyC3zJA5rlahnOeh-BhG4Of4tJKD2Sf3UYw"; 
+const API_KEY = ""; 
 
 let appState = {
     virtualBalance: 1000000, // $10 Lakhs Virtual Money
